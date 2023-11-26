@@ -10,8 +10,8 @@ class CustomTextField extends StatelessWidget {
   });
   String hintText ;
   Icon IconData ;
-  final Function onClick ;
-
+ // final Function() onClick ;
+  void Function(String?)? onClick ;
   TextInputType textInputType;
     String? _errorMessage(String str){
     switch(hintText){
@@ -26,7 +26,10 @@ class CustomTextField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20 ,),
       child: TextFormField(
-        onSaved: onClick(),
+        onTapOutside:(event){
+          FocusManager.instance.primaryFocus?.unfocus();
+        },
+        onSaved: onClick,
         obscureText: hintText == 'Enter Password' ? true : false,
         validator: (value) {
           if(value!.isEmpty){
