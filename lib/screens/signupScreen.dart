@@ -1,7 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../constant.dart';
+import '../services/auth.dart';
 import '../widget/custom_text_field.dart';
 import 'login_screen.dart';
 
@@ -11,6 +11,8 @@ class SignupScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height ;
+    String? password , email ;
+    final auth = Auth();
     return Scaffold(
       backgroundColor: KmainColor,
       body: Form(
@@ -40,21 +42,28 @@ class SignupScreen extends StatelessWidget {
             ),
             SizedBox(height: height * .1,),
             CustomTextField(
+              onClick: (){},
               hintText: 'Enter Name',
               textInputType: TextInputType.name,
-              IconData: Icon(Icons.person),
+              IconData: const Icon(Icons.person),
             ),
             SizedBox(height: height * .02,),
             CustomTextField(
+              onClick: (value){
+                email = value ;
+              },
               hintText: 'Enter Email',
-              IconData: Icon(Icons.email),
+              IconData: const Icon(Icons.email),
               textInputType: TextInputType.emailAddress,
             ),
             SizedBox(height: height * .02,),
             CustomTextField(
+              onClick: (value){
+                password = value ;
+              },
               hintText: 'Enter Password',
               textInputType: TextInputType.name,
-              IconData: Icon(Icons.lock),
+              IconData: const Icon(Icons.lock),
             ),
             SizedBox(height: height * .1,),
             Padding(
@@ -66,10 +75,15 @@ class SignupScreen extends StatelessWidget {
                   ),
                   onPressed:(){
                     if(_globalKey.currentState!.validate()){
+                      _globalKey.currentState?.save();
+                      print(email);
+                      print(password);
+                      final authResult = auth.signUp(email!, password!) ;
+                      print(authResult) ;
 
                     }
                   },
-                  child: Text(
+                  child: const Text(
                     'SIGN UP', style: TextStyle(
                     color: Colors.white,
                   ),
@@ -80,14 +94,14 @@ class SignupScreen extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("Do have an acount? ", style: TextStyle(
+                const Text("Do have an acount? ", style: TextStyle(
                   color: Colors.white,
                   fontSize: 18,
                 ),),
                 TextButton(onPressed: (){
                    Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen(),));
                 },
-                    child: Text('Login', style: TextStyle(
+                    child: const Text('Login', style: TextStyle(
                       color: Colors.black,
                       fontSize: 18,
                     )))

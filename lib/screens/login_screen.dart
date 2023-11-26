@@ -41,12 +41,14 @@ class LoginScreen extends StatelessWidget {
     ),
             SizedBox(height: height * .1,),
             CustomTextField(
+              onClick: (){},
               hintText: 'Enter Email',
               IconData: Icon(Icons.email),
               textInputType: TextInputType.emailAddress,
             ),
             SizedBox(height: height * .02,),
             CustomTextField(
+              onClick: (){},
               hintText: 'Enter Password',
               textInputType: TextInputType.name,
               IconData: Icon(Icons.lock),
