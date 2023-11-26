@@ -6,10 +6,12 @@ import '../constant.dart';
 
 class CustomTextField extends StatelessWidget {
   CustomTextField({
-    super.key, required this.hintText, required this.IconData, required this.textInputType
+    super.key,required this.onClick, required this.hintText, required this.IconData, required this.textInputType
   });
   String hintText ;
   Icon IconData ;
+  final Function onClick ;
+
   TextInputType textInputType;
     String? _errorMessage(String str){
     switch(hintText){
@@ -24,6 +26,8 @@ class CustomTextField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20 ,),
       child: TextFormField(
+        onSaved: onClick(),
+        obscureText: hintText == 'Enter Password' ? true : false,
         validator: (value) {
           if(value!.isEmpty){
             return _errorMessage(hintText) ;
